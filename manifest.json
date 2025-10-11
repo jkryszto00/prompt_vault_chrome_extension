@@ -5,10 +5,15 @@
   "description": "A Chrome extension for managing and organizing prompts",
   "permissions": [
     "storage",
-    "activeTab"
+    "activeTab",
+    "scripting"
   ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' http://localhost:5173; object-src 'self'"
+  },
   "host_permissions": [
-    "http://localhost:*/*"
+    "http://localhost:*/*",
+    "https://localhost:*/*"
   ],
   "action": {
     "default_popup": "index.html",
@@ -28,5 +33,9 @@
   "background": {
     "service_worker": "src/background.ts",
     "type": "module"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
   }
 }
