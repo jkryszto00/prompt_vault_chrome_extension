@@ -142,4 +142,7 @@
   code, pre, kbd, samp {
     font-family: "Geist Mono", monospace !important;
   }
+  button:not(:disabled), [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
 }

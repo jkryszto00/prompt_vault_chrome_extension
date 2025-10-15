@@ -9,7 +9,7 @@
     "scripting"
   ],
   "content_security_policy": {
-    "extension_pages": "script-src 'self' http://localhost:5173; object-src 'self'"
+    "extension_pages": "script-src 'self' http://localhost:5174; object-src 'self'"
   },
   "host_permissions": [
     "http://localhost:*/*",
