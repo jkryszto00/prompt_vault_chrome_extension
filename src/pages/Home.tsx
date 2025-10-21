@@ -1,35 +1,60 @@
-import { useAuth } from '@/contexts/AuthContext'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { AppSidebar } from "@/components/app-sidebar"
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+import { Separator } from "@/components/ui/separator"
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar"
+import {useAuth} from "@/contexts/AuthContext.tsx";
+import {useNavigate} from "react-router-dom";
 
 export default function Home() {
   const { user, signOut } = useAuth()
+  const navigate = useNavigate()
 
   return (
-    <div className="flex min-h-screen flex-col bg-neutral-50 dark:bg-neutral-950">
-      <header className="border-b border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900">
-        <div className="flex h-16 items-center justify-between px-6">
-          <h1 className="text-xl font-semibold">Prompt Vault</h1>
-          <div className="flex items-center gap-4">
-            <span className="text-sm text-muted-foreground">{user?.email}</span>
-            <Button variant="outline" onClick={signOut}>
-              Sign out
-            </Button>
+      <SidebarProvider>
+        <AppSidebar />
+        <SidebarInset>
+          <header className="flex h-16 shrink-0 items-center gap-2">
+            <div className="flex items-center gap-2 px-4">
+              <SidebarTrigger className="-ml-1" />
+              <Separator
+                  orientation="vertical"
+                  className="mr-2 data-[orientation=vertical]:h-4"
+              />
+              <Breadcrumb>
+                <BreadcrumbList>
+                  <BreadcrumbItem className="hidden md:block">
+                    <BreadcrumbLink href="#">
+                      Building Your Application
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator className="hidden md:block" />
+                  <BreadcrumbItem>
+                    <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
+            </div>
+          </header>
+          <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+            <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+              <div className="bg-muted/50 aspect-video rounded-xl" />
+              <div className="bg-muted/50 aspect-video rounded-xl" />
+              <div className="bg-muted/50 aspect-video rounded-xl" />
+            </div>
+            <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min" />
           </div>
-        </div>
-      </header>
-
-      <main className="flex flex-1 items-center justify-center p-6">
-        <Card className="w-full max-w-md">
-          <CardHeader className="text-center">
-            <CardTitle>Welcome to Prompt Vault</CardTitle>
-            <CardDescription>Your secure AI prompt manager</CardDescription>
-          </CardHeader>
-          <CardContent className="text-center text-sm text-muted-foreground">
-            Main view coming soon...
-          </CardContent>
-        </Card>
-      </main>
-    </div>
+        </SidebarInset>
+      </SidebarProvider>
   )
 }
